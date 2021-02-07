@@ -2,6 +2,7 @@
 # Find the largest palindrome made from the product of two 3-digit numbers.
 import sys
 sys.setrecursionlimit(100000)
+import time
 
 largest_pal = {
     'pal': 0,
@@ -51,6 +52,7 @@ def find_largest_palindrome(n1, n2):
         return find_largest_palindrome(n1, n2-1)
 
 
+start = time.time()
 for i in range(999,800,-1):
     tmppal = find_largest_palindrome(i, 999)
     if tmppal['pal'] > largest_pal['pal']:
@@ -58,3 +60,5 @@ for i in range(999,800,-1):
     # print(largest_pal)
 
 print("Largest Palindrome: {}".format(largest_pal))
+end = time.time()
+print(f"Runtime {end - start}")
