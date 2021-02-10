@@ -1,6 +1,8 @@
 # The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 # What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
+import math
+
 problem_text = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
@@ -22,10 +24,55 @@ problem_text = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"""
 
-i = 0
+coords = []
+highest = 0
+highest_values = []
 grid = []
+width = 20
+height = 20
 for row in problem_text.split('\n'):
     grid.append(row.split(' '))
-for y in range(20):
-    for x in range(20):
-        print(grid[y][x])
+
+for y in range(height):
+    for x in range(width):
+        grid[y][x] = int(grid[y][x])
+
+for y in range(height):
+    for x in range(width):
+        # print(grid[y][x])
+        if x+3 < width:
+            values = [grid[y][x], grid[y][x + 1], grid[y][x + 2], grid[y][x + 3]]
+            current = math.prod(values)
+            if highest < current:
+                highest = current
+                coords = "horizontal y{} x{}".format(y + 1, x + 1)
+                highest_values = values
+
+            if y+3 < height:
+                values = [grid[y][x], grid[y + 1][x + 1], grid[y + 2][x + 2], grid[y + 3][x + 3]]
+                current = math.prod(values)
+                if highest < current:
+                    highest = current
+                    coords = "forward diagonal y{} x{}".format(y + 1, x + 1)
+                    highest_values = values
+
+        if y+3 < height:
+            values = [grid[y][x], grid[y + 1][x], grid[y + 2][x], grid[y + 3][x]]
+            current = math.prod(values)
+            if highest < current:
+                highest = current
+                coords = "vertical y{} x{}".format(y + 1, x + 1)
+                highest_values = values
+
+            if x-3 >= 0:
+                values = [grid[y][x], grid[y + 1][x - 1], grid[y + 2][x - 2], grid[y + 3][x - 3]]
+                current = math.prod(values)
+                if highest < current:
+                    highest = current
+                    coords = "backward diagonal y{} x{}".format(y + 1, x + 1)
+                    highest_values = values
+
+
+
+print("highest {}, coords {}".format(highest, coords))
+print("values: {} product {}".format(highest_values, math.prod(highest_values)))
