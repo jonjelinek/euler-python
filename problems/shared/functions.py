@@ -1,4 +1,5 @@
 from math import sqrt
+import time
 
 # known_primes is used here to feed the list of primes back into the function to continue finding new primes
 # from the last known prime number.  Providing invalid list will result in inaccurate result
@@ -21,3 +22,37 @@ def find_primes(stop_at: int, known_primes=None):
             known_primes.append(current_number)
         current_number += 1
     return known_primes
+
+
+def get_num_of_divisors(num):
+    divisor_count = 2
+    for x in range(2, int(sqrt(num))):
+        if num % x == 0:
+            divisor_count += 2
+    return divisor_count
+
+
+def get_proper_divisors(num):
+    divisors = set()
+    for x in range(2, int(sqrt(num)) + 1):
+        if num % x == 0:
+            divisors.add(x)
+            divisors.add(int(num / x))
+
+    divisors.add(1)
+    return divisors
+
+
+def get_divisors(num):
+    divisors = get_proper_divisors(num)
+    divisors.add(num)
+    return divisors
+
+
+# This needs work, it doesn't seem to time the function exactly
+# For example, if arguments are determined ahead of time, they're excluded from the timing
+def time_function(f):
+    start = time.time()
+    f
+    end = time.time()
+    print("Took %f ms" % ((end - start) * 1000.0))

@@ -7,29 +7,17 @@
 #
 # Evaluate the sum of all the amicable numbers under 10000.
 
-from math import sqrt
-
-
-def get_divisors(num):
-    divisors = set()
-    for x in range(2, int(sqrt(num))):
-        if num % x == 0:
-            divisors.add(x)
-            divisors.add(int(num / x))
-
-    divisors.add(1)
-    return divisors
+from shared.functions import get_proper_divisors
 
 
 def sum_divisors(num):
-    return sum(get_divisors(num))
+    return sum(get_proper_divisors(num))
 
 
 assert sum_divisors(0) == 1
 assert sum_divisors(1) == 1
 assert sum_divisors(2) == 1
 assert sum_divisors(3) == 1
-# print(get_divisors(220))
 assert sum_divisors(220) == 284
 
 d_sum = []
