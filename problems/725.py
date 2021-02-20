@@ -36,6 +36,44 @@ def combinations_of_dsn(max_length_of_digits):
     return total_dsn
 
 print(combinations_of_dsn(3))
+
+
+def sum_of_dsn(digit_length):
+    if digit_length < 2:
+        return 0
+
+    if digit_length == 2:
+        dsn_numbers = {11, 22, 33, 44, 55, 66, 77, 88, 99}
+        return sum(dsn_numbers)
+
+    # what's the minimal breakdown given the spaces available
+    # example:  8 is dsn and we have length of 10, the minimal level would be something like 8011111111
+    # 808 880 maximal
+    # 844 854 871
+    # 80008 82222
+    # 28222 22822 22282 22228
+    # 12328
+    # 8 00000
+    # 8 00008 <- max
+    # 8 10007 -> 8 17000
+    # 1 80007 -> 1 87000
+    # 1 08007 -> 1 78000
+    # ..
+    # 7 80001 -> 7 81000
+    # each unique part of the sum deserves a chance to be in the front as the dsn moves down the list
+    #
+    for dsn in range(1, 9 + 1):
+        if dsn == 1:
+            total_dsn += other_digit_locations
+        else:
+            if dsn % 2 == 0:
+                total_dsn += ((dsn / 2) - 1) * full_combinations
+                total_dsn += half_combinations
+            else:
+                total_dsn += floor(dsn / 2) * full_combinations
+
+    return total_dsn
+
 # assert sum_of_dsn(3) == 63270
 
 
