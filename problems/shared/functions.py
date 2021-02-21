@@ -56,3 +56,17 @@ def time_function(f):
     f
     end = time.time()
     print("Took %f ms" % ((end - start) * 1000.0))
+
+
+def fib(i):
+    if i == 0:
+        return 0
+    if i == 1:
+        return 1
+    previous_fi = 0
+    fi = 1
+    for n in range(i - 1):
+        temp = fi
+        fi = fi + previous_fi
+        previous_fi = temp
+    return fi

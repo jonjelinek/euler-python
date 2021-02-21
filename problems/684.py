@@ -6,6 +6,7 @@
 
 # s(n)
 import time
+from shared.functions import fib
 
 
 def find_smallest_digit_sum(n):
@@ -38,27 +39,6 @@ def summation_of_digit_sums(k):
 
 
 assert summation_of_digit_sums(20) == 1074
-
-
-def fib(i):
-    if i == 0:
-        return 0
-    if i == 1:
-        return 1
-    previous_fi = 0
-    fi = 1
-    for n in range(i - 1):
-        temp = fi
-        fi = fi + previous_fi
-        previous_fi = temp
-    return fi
-
-
-assert fib(0) == 0
-assert fib(1) == 1
-assert fib(2) == 1
-assert fib(12) == 144
-
 
 # result in (10**9)+7
 sum = 0
