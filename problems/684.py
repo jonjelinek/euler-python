@@ -5,13 +5,26 @@
 # finally the fibonacci thing
 
 # s(n)
+import time
+
+
 def find_smallest_digit_sum(n):
+     return int(str(n % 9) + '9' * (n // 9))
+
+
+def find_smallest_digit_sum_without_str(n):
+    print(n)
     nines = n // 9
     leading_number = n % 9
-    num_str = str(leading_number)
+    # num_str = str(leading_number)
+    num = 0
+    # this is considerably slower than using string
     for x in range(nines):
-        num_str += "9"
-    return int(num_str)
+        num += 10**x * 9
+        # num_str += "9"
+    if leading_number != 0:
+        num += 10**nines * leading_number
+    return num % ((10**9)+7)
 
 
 assert find_smallest_digit_sum(10) == 19
@@ -50,10 +63,11 @@ assert fib(12) == 144
 # result in (10**9)+7
 sum = 0
 for fi in range(2, 90 + 1):
-    mod_sum = find_smallest_digit_sum(fib(fi)) % ((10**9)+7)
+    start_time = time.time()
+    n = fib(fi)
+    mod_sum = int(str(n % 9) + '9' * (n // 9)) % ((10**9) + 7)
+    end_time = time.time()
+    print("fi %i find_smallest_digit_sum %f ms" % (fi, (end_time - start_time) * 1000.0))
     sum += mod_sum
     print("fi {} mod_sum {} sum {}".format(fi, mod_sum, sum))
 print(sum)
-
-
-# summation_of_fibonacci_nums_digit_sum_sums(2)
