@@ -1,6 +1,7 @@
 from math import sqrt
 import time
 
+
 # known_primes is used here to feed the list of primes back into the function to continue finding new primes
 # from the last known prime number.  Providing invalid list will result in inaccurate result
 def find_primes(stop_at: int, known_primes=None):
